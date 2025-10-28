@@ -38,19 +38,19 @@ const getCompanyDataJsonStructure = (): string => {
       "currency": "string (e.g., USD or INR)",
       "summary": "A comprehensive summary of the company's business, market position, and recent performance.",
       "incomeStatement": {
-        "2025": { "Revenue": "number", "COGS": "number", "Gross Profit": "number", "Operating Expenses": "number", "Net Income": "number" },
-        "2024": { "Revenue": "number", "COGS": "number", "Gross Profit": "number", "Operating Expenses": "number", "Net Income": "number" },
-        "2023": { "Revenue": "number", "COGS": "number", "Gross Profit": "number", "Operating Expenses": "number", "Net Income": "number" }
+        "[Latest Year/TTM]": { "Revenue": "number", "COGS": "number", "Gross Profit": "number", "Operating Expenses": "number", "Net Income": "number" },
+        "[Previous Year]": { "Revenue": "number", "COGS": "number", "Gross Profit": "number", "Operating Expenses": "number", "Net Income": "number" },
+        "[Year before Previous]": { "Revenue": "number", "COGS": "number", "Gross Profit": "number", "Operating Expenses": "number", "Net Income": "number" }
       },
       "balanceSheet": {
-        "2025": { "Total Assets": "number", "Total Liabilities": "number", "Total Equity": "number", "Cash and Equivalents": "number", "Long-term Debt": "number" },
-        "2024": { "Total Assets": "number", "Total Liabilities": "number", "Total Equity": "number", "Cash and Equivalents": "number", "Long-term Debt": "number" },
-        "2023": { "Total Assets": "number", "Total Liabilities": "number", "Total Equity": "number", "Cash and Equivalents": "number", "Long-term Debt": "number" }
+        "[Latest Year/TTM]": { "Total Assets": "number", "Total Liabilities": "number", "Total Equity": "number", "Cash and Equivalents": "number", "Long-term Debt": "number" },
+        "[Previous Year]": { "Total Assets": "number", "Total Liabilities": "number", "Total Equity": "number", "Cash and Equivalents": "number", "Long-term Debt": "number" },
+        "[Year before Previous]": { "Total Assets": "number", "Total Liabilities": "number", "Total Equity": "number", "Cash and Equivalents": "number", "Long-term Debt": "number" }
       },
       "cashFlowStatement": {
-        "2025": { "Operating Cash Flow": "number", "Investing Cash Flow": "number", "Financing Cash Flow": "number", "Net Change in Cash": "number" },
-        "2024": { "Operating Cash Flow": "number", "Investing Cash Flow": "number", "Financing Cash Flow": "number", "Net Change in Cash": "number" },
-        "2023": { "Operating Cash Flow": "number", "Investing Cash Flow": "number", "Financing Cash Flow": "number", "Net Change in Cash": "number" }
+        "[Latest Year/TTM]": { "Operating Cash Flow": "number", "Investing Cash Flow": "number", "Financing Cash Flow": "number", "Net Change in Cash": "number" },
+        "[Previous Year]": { "Operating Cash Flow": "number", "Investing Cash Flow": "number", "Financing Cash Flow": "number", "Net Change in Cash": "number" },
+        "[Year before Previous]": { "Operating Cash Flow": "number", "Investing Cash Flow": "number", "Financing Cash Flow": "number", "Net Change in Cash": "number" }
       },
       "ratios": [
         { "name": "P/E Ratio", "value": "string", "commentary": "string", "benchmark": "string" },
@@ -59,9 +59,9 @@ const getCompanyDataJsonStructure = (): string => {
         { "name": "Current Ratio", "value": "string", "commentary": "string", "benchmark": "string" }
       ],
       "ratioHistory": [
-        { "name": "P/E Ratio", "history": [{ "year": "2025", "value": "number" }, { "year": "2024", "value": "number" }, { "year": "2023", "value": "number" }, { "year": "2022", "value": "number" }, { "year": "2021", "value": "number" }] },
-        { "name": "Debt-to-Equity", "history": [{ "year": "2025", "value": "number" }, { "year": "2024", "value": "number" }, { "year": "2023", "value": "number" }, { "year": "2022", "value": "number" }, { "year": "2021", "value": "number" }] },
-        { "name": "Return on Equity (ROE)", "history": [{ "year": "2025", "value": "number" }, { "year": "2024", "value": "number" }, { "year": "2023", "value": "number" }, { "year": "2022", "value": "number" }, { "year": "2021", "value": "number" }] }
+        { "name": "P/E Ratio", "history": [{ "year": "[Latest Year]", "value": "number" }, { "year": "[Year-1]", "value": "number" }, { "year": "[Year-2]", "value": "number" }, { "year": "[Year-3]", "value": "number" }, { "year": "[Year-4]", "value": "number" }] },
+        { "name": "Debt-to-Equity", "history": [{ "year": "[Latest Year]", "value": "number" }, { "year": "[Year-1]", "value": "number" }, { "year": "[Year-2]", "value": "number" }, { "year": "[Year-3]", "value": "number" }, { "year": "[Year-4]", "value": "number" }] },
+        { "name": "Return on Equity (ROE)", "history": [{ "year": "[Latest Year]", "value": "number" }, { "year": "[Year-1]", "value": "number" }, { "year": "[Year-2]", "value": "number" }, { "year": "[Year-3]", "value": "number" }, { "year": "[Year-4]", "value": "number" }] }
       ],
       "news": [
         { "headline": "string", "source": "string", "summary": "string" }
@@ -91,7 +91,7 @@ export const getCompanyAnalysis = async (companyName: string, isIndian: boolean)
         ${getCompanyDataJsonStructure()}
 
         Important instructions:
-        - Financial statement data should be for the last 3 reported fiscal years. If the latest full year is not over, use TTM data for the most recent year and label it as such (e.g. "2025 TTM").
+        - Financial statement data should be for the last 3 reported fiscal years. If the latest full year is not over, use TTM data for the most recent year and label the year key as such (e.g. "2024 TTM").
         - All financial figures MUST be in millions of the local currency (${isIndian ? "INR" : "USD"}).
         - 'ratios' should be for the most recent full year or TTM. Provide insightful commentary and a relevant industry benchmark.
         - 'ratioHistory' should cover the last 5 years for the specified key ratios.
@@ -121,12 +121,7 @@ export const getCompanyAnalysis = async (companyName: string, isIndian: boolean)
 
     } catch(e) {
         console.error("Error fetching company analysis from Gemini:", e);
-        let errorMessage = `Failed to analyze ${companyName}. The model returned an invalid response.`;
-        if (e instanceof SyntaxError) {
-            errorMessage += " Could not parse the JSON output from the model."
-        } else if (e instanceof Error) {
-            errorMessage += ` Details: ${e.message}`;
-        }
+        const errorMessage = `Failed to retrieve analysis for ${companyName}. The AI model couldn't process the request. This might be due to a temporary issue or an unsupported company. Please try another company.`;
         throw new Error(errorMessage);
     }
 };
@@ -212,23 +207,10 @@ export const runMultiModelValuation = async (companyData: CompanyData, assumptio
         }
         const result = JSON.parse(jsonText);
         
-        // Validate the structure of the parsed JSON
-        const requiredKeys = ['dcf', 'relative', 'ddm', 'assetBased', 'commentary'];
-        for (const key of requiredKeys) {
-            if (!(key in result)) {
-                throw new Error(`Model response is missing the required key: '${key}'`);
-            }
-        }
-
         return result as MultiModelValuationResult;
     } catch(e) {
         console.error("Error running multi-model valuation from Gemini:", e);
-        let errorMessage = `Failed to run valuation for ${companyData.companyName}. The model returned an invalid response.`;
-        if (e instanceof SyntaxError) {
-            errorMessage += " Could not parse the JSON output from the model."
-        } else if (e instanceof Error) {
-            errorMessage += ` Details: ${e.message}`;
-        }
+        const errorMessage = `Failed to run valuation for ${companyData.companyName}. The AI model couldn't complete the calculation. Please adjust your assumptions or try again later.`;
         throw new Error(errorMessage);
     }
 };

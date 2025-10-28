@@ -68,7 +68,7 @@ export const Valuation: React.FC<ValuationProps> = ({ companyData }) => {
         {valuationResult && (
           <>
             <ValuationComparison result={valuationResult} currency={companyData.currency} />
-            <ValuationResults result={valuationResult.dcf} currency={companyData.currency} />
+            {valuationResult.dcf && <ValuationResults result={valuationResult.dcf} currency={companyData.currency} />}
           </>
         )}
       </div>

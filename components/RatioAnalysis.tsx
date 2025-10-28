@@ -24,7 +24,7 @@ export const RatioAnalysis: React.FC<RatioAnalysisProps> = ({ ratios, ratioHisto
   return (
     <div className="space-y-8">
       <div>
-        <h3 className="text-2xl font-semibold text-cyan-300 mb-4">Key Ratios (2025)</h3>
+        <h3 className="text-2xl font-semibold text-cyan-300 mb-4">Latest Key Ratios</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {ratios.map((ratio, index) => (
             <RatioCard key={index} ratio={ratio} />
