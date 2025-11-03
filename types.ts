@@ -1,9 +1,8 @@
-import type React from 'react';
 
 export interface NavItem {
   id: 'analysis' | 'news' | 'valuation' | 'reports';
   label: string;
-  icon: React.FC<React.SVGProps<SVGSVGElement>>;
+  icon: 'ChartBarIcon' | 'NewspaperIcon' | 'CalculatorIcon' | 'DocumentReportIcon';
 }
 
 export interface FinancialStatementItem {

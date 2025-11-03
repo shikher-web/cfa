@@ -1,8 +1,7 @@
-
 import React from 'react';
 import type { NavItem } from '../types';
 import { NAV_ITEMS } from '../constants';
-import { CosmicIcon } from './icons';
+import { CosmicIcon, ChartBarIcon, NewspaperIcon, CalculatorIcon, DocumentReportIcon } from './icons';
 
 interface SidebarProps {
   activeNav: NavItem;
@@ -10,6 +9,14 @@ interface SidebarProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
 }
+
+const iconComponents = {
+  ChartBarIcon,
+  NewspaperIcon,
+  CalculatorIcon,
+  DocumentReportIcon,
+};
+
 
 export const Sidebar: React.FC<SidebarProps> = ({ activeNav, setActiveNav, isOpen, setIsOpen }) => {
   return (
@@ -23,27 +30,29 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeNav, setActiveNav, isOpe
           </h1>
         </div>
         <nav className="flex-1 px-4 py-6 space-y-2">
-          {NAV_ITEMS.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => {
-                setActiveNav(item);
-                setIsOpen(false);
-              }}
-              className={`w-full flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 ${
-                activeNav.id === item.id
-                  ? 'bg-cyan-400/10 text-cyan-300 shadow-inner shadow-cyan-500/10'
-                  : 'text-slate-400 hover:bg-slate-800/60 hover:text-slate-200'
-              }`}
-            >
-              <item.icon className="h-5 w-5 mr-3" />
-              {item.label}
-            </button>
-          ))}
+          {NAV_ITEMS.map((item) => {
+            const IconComponent = iconComponents[item.icon];
+            return (
+              <button
+                key={item.id}
+                onClick={() => {
+                  setActiveNav(item);
+                  setIsOpen(false);
+                }}
+                className={`w-full flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 ${
+                  activeNav.id === item.id
+                    ? 'bg-cyan-400/10 text-cyan-300 shadow-inner shadow-cyan-500/10'
+                    : 'text-slate-400 hover:bg-slate-800/60 hover:text-slate-200'
+                }`}
+              >
+                <IconComponent className="h-5 w-5 mr-3" />
+                {item.label}
+              </button>
+            );
+          })}
         </nav>
         <div className="p-4 border-t border-slate-800/50 text-xs text-center text-slate-500">
-          <p>By Cosmic Consulting</p>
-          <p>Designed by Shikher</p>
+          <p>Innovate and Designed by Shikher</p>
         </div>
       </aside>
     </>

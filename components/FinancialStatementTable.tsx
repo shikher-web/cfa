@@ -9,7 +9,12 @@ interface FinancialStatementTableProps {
 }
 
 export const FinancialStatementTable: React.FC<FinancialStatementTableProps> = ({ title, data, currency }) => {
-  const years = Object.keys(data).sort((a, b) => Number(b) - Number(a));
+  const years = Object.keys(data).sort((a, b) => {
+    // Extracts numbers from strings like "2024" or "2024 TTM" for robust sorting
+    const yearBValue = parseInt(b.replace(/[^0-9]/g, '')) || 0;
+    const yearAValue = parseInt(a.replace(/[^0-9]/g, '')) || 0;
+    return yearBValue - yearAValue;
+  });
   if (years.length === 0) return null;
 
   const items = Object.keys(data[years[0]]);

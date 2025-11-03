@@ -1,4 +1,4 @@
-// Fix: Implement the Gemini service to resolve module errors and provide functionality.
+
 import { GoogleGenAI } from "@google/genai";
 import type { CompanyData, ValuationAssumptions, MultiModelValuationResult } from '../types';
 

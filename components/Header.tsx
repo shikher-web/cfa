@@ -3,18 +3,20 @@ import React, { useState } from 'react';
 import { MenuIcon, SearchIcon } from './icons';
 
 interface HeaderProps {
-  onAnalyze: (companyName: string, isIndian: boolean) => void;
+  onAnalyze: (companyName: string) => void;
   onToggleSidebar: () => void;
+  isLoading: boolean;
+  isIndian: boolean;
+  setIsIndian: (isIndian: boolean) => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onAnalyze, onToggleSidebar }) => {
+export const Header: React.FC<HeaderProps> = ({ onAnalyze, onToggleSidebar, isLoading, isIndian, setIsIndian }) => {
   const [companyName, setCompanyName] = useState('');
-  const [isIndian, setIsIndian] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (companyName.trim()) {
-      onAnalyze(companyName.trim(), isIndian);
+      onAnalyze(companyName.trim());
       setCompanyName('');
     }
   };
@@ -32,8 +34,9 @@ export const Header: React.FC<HeaderProps> = ({ onAnalyze, onToggleSidebar }) =>
             type="text"
             value={companyName}
             onChange={(e) => setCompanyName(e.target.value)}
-            placeholder="Analyze a company (e.g., Apple, Reliance Industries)"
-            className="w-full pl-10 pr-4 py-2 bg-slate-800/70 border border-slate-700 rounded-full text-slate-300 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all"
+            disabled={isLoading}
+            placeholder={isLoading ? "Analyzing..." : "Analyze a company (e.g., Apple, Reliance Industries)"}
+            className="w-full pl-10 pr-4 py-2 bg-slate-800/70 border border-slate-700 rounded-full text-slate-300 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all disabled:bg-slate-800 disabled:cursor-not-allowed"
           />
           <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-500" />
         </form>

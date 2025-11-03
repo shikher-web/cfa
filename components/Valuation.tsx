@@ -4,6 +4,7 @@ import { AssumptionControls } from './AssumptionControls';
 import { ValuationResults } from './ValuationResults';
 import { ValuationComparison } from './ValuationComparison';
 import { LoadingSpinner } from './LoadingSpinner';
+import { ErrorDisplay } from './ErrorDisplay';
 import { runMultiModelValuation } from '../services/geminiService';
 
 interface ValuationProps {
@@ -52,12 +53,11 @@ export const Valuation: React.FC<ValuationProps> = ({ companyData }) => {
           </div>
         )}
         {error && (
-            <div className="flex items-center justify-center h-full">
-            <div className="bg-red-900/50 text-red-300 p-6 rounded-lg text-center max-w-lg">
-              <h2 className="text-xl font-bold mb-2">Valuation Error</h2>
-              <p>{error}</p>
-            </div>
-          </div>
+            <ErrorDisplay
+              title="Valuation Error"
+              message={error}
+              onDismiss={() => setError(null)}
+            />
         )}
         {!isLoading && !error && !valuationResult && (
              <div className="flex flex-col items-center justify-center h-96 bg-slate-800/50 rounded-lg border border-slate-700/50 text-center p-8">

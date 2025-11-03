@@ -22,6 +22,14 @@
       ::-webkit-scrollbar-thumb:hover {
         background: #475569; /* slate-600 */
       }
+      /* Custom animation */
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .animate-fade-in {
+        animation: fadeIn 0.5s ease-out forwards;
+      }
     </style>
   <script type="importmap">
 {
@@ -30,7 +38,7 @@
     "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
     "react/": "https://aistudiocdn.com/react@^19.2.0/",
     "@google/genai": "https://aistudiocdn.com/@google/genai@^1.27.0",
-    "recharts": "https://aistudiocdn.com/recharts@^3.3.0",
+    "recharts": "https://aistudiocdn.com/recharts@^2.12.0",
     "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.0",
     "vite": "https://aistudiocdn.com/vite@^7.1.12"
   }
